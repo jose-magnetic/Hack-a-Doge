@@ -23,4 +23,15 @@
         android:id="@+id/progressBar"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_dialog_email"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_alignBottom="@+id/gridView"
+        android:layout_alignEnd="@+id/gridView" />
 </RelativeLayout>
