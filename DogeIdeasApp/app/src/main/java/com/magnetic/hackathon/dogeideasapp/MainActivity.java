@@ -6,15 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,26 +60,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void connectDB(View view) {
-        try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            Connection con = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
-
-            String result = "Database connection success\n";
-            Log.w("oracle connection", result);
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select count(*) from ETLPREP.BW_HACKATHON");
-            while (rs.next()) {
-                Log.d("result set", String.valueOf(rs.getInt(1))); // should see
-            }
-
-            st.close();
-            con.close();
-        } catch (Exception e) {
-            e.getStackTrace();
-            Log.e("oracle connection", "error connecting to DB"+ JDBC_URL + USER + PASSWORD, e);
-        }
     }
 }
