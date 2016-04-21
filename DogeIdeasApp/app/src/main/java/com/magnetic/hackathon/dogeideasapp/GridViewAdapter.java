@@ -1,20 +1,19 @@
 package com.magnetic.hackathon.dogeideasapp;
 
 
-        import java.util.ArrayList;
-        import java.util.List;
-
         import android.app.Activity;
-        import android.content.Context;
-        import android.text.Html;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ArrayAdapter;
-        import android.widget.ImageView;
-        import android.widget.TextView;
+import android.content.Context;
+import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-        import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class GridViewAdapter extends ArrayAdapter<GridItem> {
 
@@ -50,6 +49,7 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
             holder = new ViewHolder();
             holder.titleTextView = (TextView) row.findViewById(R.id.grid_item_title);
             holder.imageView = (ImageView) row.findViewById(R.id.grid_item_image);
+            holder.price = (TextView) row.findViewById(R.id.grid_item_price);
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
@@ -59,11 +59,13 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
         holder.titleTextView.setText(Html.fromHtml(item.getTitle()));
 
         Picasso.with(mContext).load(item.getImageURL()).into(holder.imageView);
+        holder.price.setText("$" + String.valueOf(item.getPrice()));
         return row;
     }
 
     static class ViewHolder {
         TextView titleTextView;
         ImageView imageView;
+        TextView price;
     }
 }
