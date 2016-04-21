@@ -1,6 +1,7 @@
 package com.magnetic.hackathon.dogeideasapp;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,12 +19,17 @@ import java.sql.Statement;
 public class MainActivity extends AppCompatActivity {
 
     private static final String JDBC_URL = "jdbc:oracle:thin:@10.150.1.38:1521:devqa";
+    //private static final String JDBC_URL = "jdbc:oracle:thin:@sdb.staging.mybuys.com:1521:staging";
     private static final String USER = "qa";
     private static final String PASSWORD = "password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,15 +76,16 @@ public class MainActivity extends AppCompatActivity {
             String result = "Database connection success\n";
             Log.w("oracle connection", result);
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select 1 from dual;");
-
-            Log.w("return result", rs.getString(0));
+            ResultSet rs = st.executeQuery("select count(*) from ETLPREP.BW_HACKATHON");
+            while (rs.next()) {
+                Log.d("result set", String.valueOf(rs.getInt(1))); // should see
+            }
 
             st.close();
             con.close();
         } catch (Exception e) {
             e.getStackTrace();
-            Log.e("oracle connection", "error connecting to DB", e);
+            Log.e("oracle connection", "error connecting to DB"+ JDBC_URL + USER + PASSWORD, e);
         }
     }
 }
