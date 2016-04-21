@@ -23,4 +23,34 @@
         android:id="@+id/progressBar"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_dialog_email"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_alignParentEnd="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cat"
+        android:id="@+id/button2"
+        android:src="@android:drawable/ic_dialog_email"
+        android:layout_alignTop="@+id/button"
+        android:layout_toStartOf="@+id/button" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dog"
+        android:id="@+id/button3"
+        android:src="@android:drawable/ic_dialog_email"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_toStartOf="@+id/button2" />
+
 </RelativeLayout>
