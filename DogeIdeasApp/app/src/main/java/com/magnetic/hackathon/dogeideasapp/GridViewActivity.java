@@ -46,6 +46,8 @@ public class GridViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gridview);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar.setTitle("Magne-Doge");
+        myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(myToolbar);
 
         mGridView = (GridView) findViewById(R.id.gridView);
