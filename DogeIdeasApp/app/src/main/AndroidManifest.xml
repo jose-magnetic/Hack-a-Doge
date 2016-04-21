@@ -9,7 +9,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Magne-Doge"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
         <activity
             android:name=".SplashScreen"
             android:label="Magne-Doge"

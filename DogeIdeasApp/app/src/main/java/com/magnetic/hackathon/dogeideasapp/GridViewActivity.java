@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +22,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridViewActivity extends Activity {
+public class GridViewActivity extends AppCompatActivity {
     private static final String TAG = GridViewActivity.class.getSimpleName();
 
     // Oracle connection info
@@ -42,6 +44,9 @@ public class GridViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gridview);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
         mGridView = (GridView) findViewById(R.id.gridView);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);

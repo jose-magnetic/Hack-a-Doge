@@ -1,14 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0f0f0">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
 
     <GridView
         android:id="@+id/gridView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_margin="5dp"
-        android:columnWidth="100dp"
+        android:scaleType="fitCenter"
         android:drawSelectorOnTop="true"
         android:gravity="center"
         android:numColumns="auto_fit"
@@ -17,10 +18,21 @@
         android:focusable="true"
         android:clickable="true"/>
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
+
+
 </RelativeLayout>
