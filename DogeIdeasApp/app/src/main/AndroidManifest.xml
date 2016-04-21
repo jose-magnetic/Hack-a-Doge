@@ -11,9 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".GridViewActivity"
+            android:name=".SplashScreen"
             android:label="Magne-Doge"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,11 +22,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DetailsActivity"
-            android:theme="@style/TextAppearance.AppCompat"
-            />
+        <activity
+            android:name=".GridViewActivity"
+            android:label="Magne-Doge"
+            android:theme="@style/AppTheme">
+        </activity>
 
     </application>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
 </manifest>
