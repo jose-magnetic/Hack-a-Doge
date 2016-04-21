@@ -1,17 +1,17 @@
 package com.magnetic.hackathon.dogeideasapp;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -54,32 +54,33 @@ public class GridViewActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 //Get item at position
                 GridItem item = (GridItem) parent.getItemAtPosition(position);
-
-                Intent intent = new Intent(GridViewActivity.this, DetailsActivity.class);
-                ImageView imageView = (ImageView) v.findViewById(R.id.grid_item_image);
-
-                // Interesting data to pass across are the thumbnail size/location, the
-                // resourceId of the source bitmap, the picture description, and the
-                // orientation (to avoid returning back to an obsolete configuration if
-                // the device rotates again in the meantime)
-
-                int[] screenLocation = new int[2];
-                imageView.getLocationOnScreen(screenLocation);
-
-                //Pass the image title and url to DetailsActivity
-                intent.putExtra("left", screenLocation[0]).
-                        putExtra("top", screenLocation[1]).
-                        putExtra("width", imageView.getWidth()).
-                        putExtra("height", imageView.getHeight()).
-                        putExtra("title", item.getTitle()).
-                        putExtra("image", item.getImageURL());
-
-                //Start details activity
-                startActivity(intent);
+                openUrl(item.getSiteURL());
             }
         });
         new ProductFetcher().execute();
         mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * open system browser and load the url
+     * @param url
+     */
+    public void openUrl(String url) {
+        String HTTP = "http://";
+        String HTTPS = "https://";
+        Uri webPage;
+
+        if (!url.startsWith(HTTP) && !url.startsWith(HTTPS))
+            url = "http://" + url;
+
+        webPage = Uri.parse(url);
+
+        try {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, webPage);
+            startActivity(browserIntent);
+        } catch (ActivityNotFoundException e) {
+            ;
+        }
     }
 
     /**
