@@ -1,17 +1,20 @@
 package com.magnetic.hackathon.dogeideasapp;
 
 
-        import android.app.Activity;
-import android.content.Context;
-import android.text.Html;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+        import java.util.ArrayList;
+        import java.util.List;
 
-import com.squareup.picasso.Picasso;
+        import android.app.Activity;
+        import android.content.Context;
+        import android.text.Html;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.ArrayAdapter;
+        import android.widget.ImageView;
+        import android.widget.TextView;
+
+        import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -58,7 +61,7 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
         GridItem item = mGridData.get(position);
         holder.titleTextView.setText(Html.fromHtml(item.getTitle()));
 
-        Picasso.with(mContext).load(item.getImageURL()).into(holder.imageView);
+        Picasso.with(mContext).load(item.getImageURL()).fit().into(holder.imageView);
         holder.price.setText("$" + String.valueOf(item.getPrice()));
         return row;
     }
