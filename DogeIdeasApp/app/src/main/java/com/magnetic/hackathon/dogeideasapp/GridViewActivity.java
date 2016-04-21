@@ -1,14 +1,13 @@
 package com.magnetic.hackathon.dogeideasapp;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -113,7 +112,10 @@ public class GridViewActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 //Get item at position
                 GridItem item = (GridItem) parent.getItemAtPosition(position);
-                openUrl(item.getSiteURL());
+                if (state == State.Dogs)
+                    openUrl(mGridData.get(position).getSiteURL());
+                else
+                    openUrl(mGridDataCat.get(position).getSiteURL());
             }
         });
         new ProductFetcher().execute();
