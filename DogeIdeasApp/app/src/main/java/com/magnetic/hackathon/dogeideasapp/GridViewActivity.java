@@ -81,15 +81,15 @@ public class GridViewActivity extends Activity {
                     mGridAdapter.notifyDataSetChanged();
                     mGridView.invalidateViews();
                     state = State.Cat;
-                    catButton.setImageResource(R.drawable.ic_pets_black_24dp);
-                    dogButton.setImageResource(R.drawable.ic_pets_white_24dp);
+                    catButton.setImageResource(R.drawable.ic_doge);
+                    dogButton.setImageResource(R.drawable.ic_catz);
                 } else {
                     mGridAdapter.setGridData(mGridData);
                     mGridAdapter.notifyDataSetChanged();
                     mGridView.invalidateViews();
                     state = State.Dogs;
-                    catButton.setImageResource(R.drawable.ic_pets_white_24dp);
-                    dogButton.setImageResource(R.drawable.ic_pets_black_24dp);
+                    catButton.setImageResource(R.drawable.ic_catz);
+                    dogButton.setImageResource(R.drawable.ic_doge);
                 }
                 catButton.setVisibility(View.GONE);
             }
