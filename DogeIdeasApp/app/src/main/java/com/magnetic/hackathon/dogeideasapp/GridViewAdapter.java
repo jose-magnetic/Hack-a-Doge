@@ -2,6 +2,8 @@ package com.magnetic.hackathon.dogeideasapp;
 
 
         import java.util.ArrayList;
+        import java.util.List;
+
         import android.app.Activity;
         import android.content.Context;
         import android.text.Html;
@@ -18,9 +20,9 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
 
     private Context mContext;
     private int layoutResourceId;
-    private ArrayList<GridItem> mGridData = new ArrayList<GridItem>();
+    private List<GridItem> mGridData;
 
-    public GridViewAdapter(Context mContext, int layoutResourceId, ArrayList<GridItem> mGridData) {
+    public GridViewAdapter(Context mContext, int layoutResourceId, List<GridItem> mGridData) {
         super(mContext, layoutResourceId, mGridData);
         this.layoutResourceId = layoutResourceId;
         this.mContext = mContext;
@@ -32,7 +34,7 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
      * Updates grid data and refresh grid items.
      * @param mGridData
      */
-    public void setGridData(ArrayList<GridItem> mGridData) {
+    public void setGridData(List<GridItem> mGridData) {
         this.mGridData = mGridData;
         notifyDataSetChanged();
     }
