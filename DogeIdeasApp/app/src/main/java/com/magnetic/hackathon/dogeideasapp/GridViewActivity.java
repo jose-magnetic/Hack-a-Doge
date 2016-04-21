@@ -62,42 +62,35 @@ public class GridViewActivity extends Activity {
         dogButton = (FloatingActionButton) findViewById(R.id.button2);
         catButton = (FloatingActionButton) findViewById(R.id.button3);
 
-        dogButton.setVisibility(View.GONE);
         catButton.setVisibility(View.GONE);
-
-        profileButton = (FloatingActionButton) findViewById(R.id.button);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Animation slideLeft = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.side_left);
-                Animation slideLeft2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.side_left2);
-                dogButton.setAnimation(slideLeft);
-                dogButton.setVisibility(View.VISIBLE);
-                catButton.setAnimation(slideLeft2);
-                catButton.setVisibility(View.VISIBLE);
-            }
-        });
 
         dogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGridAdapter.setGridData(mGridDataCat);
-                mGridAdapter.notifyDataSetChanged();
-                mGridView.invalidateViews();
-                state = State.Cat;
-                dogButton.setVisibility(View.GONE);
-                catButton.setVisibility(View.GONE);
+                Animation slideLeft = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.side_left);
+                catButton.setAnimation(slideLeft);
+                catButton.setVisibility(View.VISIBLE);
             }
         });
 
         catButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mGridAdapter.setGridData(mGridData);
-                mGridAdapter.notifyDataSetChanged();
-                mGridView.invalidateViews();
-                state = State.Dogs;
-                dogButton.setVisibility(View.GONE);
+                if (state == State.Dogs) {
+                    mGridAdapter.setGridData(mGridDataCat);
+                    mGridAdapter.notifyDataSetChanged();
+                    mGridView.invalidateViews();
+                    state = State.Cat;
+                    catButton.setImageResource(R.drawable.ic_pets_black_24dp);
+                    dogButton.setImageResource(R.drawable.ic_pets_white_24dp);
+                } else {
+                    mGridAdapter.setGridData(mGridData);
+                    mGridAdapter.notifyDataSetChanged();
+                    mGridView.invalidateViews();
+                    state = State.Dogs;
+                    catButton.setImageResource(R.drawable.ic_pets_white_24dp);
+                    dogButton.setImageResource(R.drawable.ic_pets_black_24dp);
+                }
                 catButton.setVisibility(View.GONE);
             }
         });
