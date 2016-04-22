@@ -2,6 +2,7 @@ package com.magnetic.hackathon.dogeideasapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
@@ -23,6 +24,8 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        final MediaPlayer mpDog = MediaPlayer.create(this, R.raw.dog_barking);
+
         final ImageView image = (ImageView)findViewById(R.id.logo);
 
         animFadein = AnimationUtils.loadAnimation(getApplicationContext(),
@@ -43,6 +46,7 @@ public class SplashScreen extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                mpDog.start();
                 Intent i = new Intent(SplashScreen.this, GridViewActivity.class);
                 startActivity(i);
                 finish();

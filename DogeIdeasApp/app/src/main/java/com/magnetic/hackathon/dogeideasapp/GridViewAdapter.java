@@ -1,9 +1,9 @@
 package com.magnetic.hackathon.dogeideasapp;
 
 
-        import java.util.List;
+import java.util.List;
 
-        import android.app.Activity;
+import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
 
 public class GridViewAdapter extends ArrayAdapter<GridItem> {
 

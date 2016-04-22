@@ -2,6 +2,7 @@ package com.magnetic.hackathon.dogeideasapp;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -114,6 +115,9 @@ public class GridViewActivity extends AppCompatActivity {
         dogButton = (FloatingActionButton) findViewById(R.id.button2);
         catButton = (FloatingActionButton) findViewById(R.id.button3);
 
+        final MediaPlayer mpDog = MediaPlayer.create(this, R.raw.dog_barking);
+        final MediaPlayer mpCat = MediaPlayer.create(this, R.raw.cat_meow);
+
         catButton.setVisibility(View.GONE);
 
         dogButton.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +139,7 @@ public class GridViewActivity extends AppCompatActivity {
                     dogPosition = mGridView.getFirstVisiblePosition();
                     mGridView.smoothScrollToPosition(catPosition);
                     state = State.Cat;
+                    mpCat.start();
                     catButton.setImageResource(R.drawable.ic_doge);
                     dogButton.setImageResource(R.drawable.ic_catz);
                 } else {
@@ -144,6 +149,7 @@ public class GridViewActivity extends AppCompatActivity {
                     catPosition = mGridView.getFirstVisiblePosition();
                     mGridView.smoothScrollToPosition(dogPosition);
                     state = State.Dogs;
+                    mpDog.start();
                     catButton.setImageResource(R.drawable.ic_catz);
                     dogButton.setImageResource(R.drawable.ic_doge);
                 }
