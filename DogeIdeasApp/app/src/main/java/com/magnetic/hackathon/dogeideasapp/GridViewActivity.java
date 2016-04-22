@@ -228,7 +228,6 @@ public class GridViewActivity extends AppCompatActivity {
                     i++;
 
                     if (i == 30) {
-                        isSuccessful = true;
                         publishProgress();
                     }
                     GridItem item = new GridItem();
@@ -237,10 +236,14 @@ public class GridViewActivity extends AppCompatActivity {
                     item.setImageURL(rs.getString(3));
                     item.setSiteURL(rs.getString(4));
 
+                    if (i<30) {
+                        mGridDataCat.add(item);
+                    }
                     mGridData.add(item);
                 }
 
                 rs = st.executeQuery(GRID_ITEM_QUERY_CAT);
+                mGridDataCat.clear();
                 while (rs.next()) {
 
                     GridItem item = new GridItem();
