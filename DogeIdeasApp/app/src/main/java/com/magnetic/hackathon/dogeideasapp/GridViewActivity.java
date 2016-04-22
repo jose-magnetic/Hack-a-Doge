@@ -214,6 +214,7 @@ public class GridViewActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(String... params) {
             boolean isSuccessful = false;
+            int i=0;
 
             // Connect to Oracle Database
             Connection con= null;
@@ -224,6 +225,12 @@ public class GridViewActivity extends AppCompatActivity {
                 st = con.createStatement();
                 ResultSet rs = st.executeQuery(GRID_ITEM_QUERY);
                 while (rs.next()) {
+                    i++;
+
+                    if (i == 30) {
+                        isSuccessful = true;
+                        publishProgress();
+                    }
                     GridItem item = new GridItem();
                     item.setTitle(rs.getString(1));
                     item.setPrice(rs.getDouble(2));
@@ -235,6 +242,7 @@ public class GridViewActivity extends AppCompatActivity {
 
                 rs = st.executeQuery(GRID_ITEM_QUERY_CAT);
                 while (rs.next()) {
+
                     GridItem item = new GridItem();
                     item.setTitle(rs.getString(1));
                     item.setPrice(rs.getDouble(2));
@@ -263,6 +271,12 @@ public class GridViewActivity extends AppCompatActivity {
                 }
             }
             return isSuccessful;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... text) {
+            mGridAdapter.setGridData(mGridData);
+            mProgressBar.setVisibility(View.GONE);
         }
 
         @Override
