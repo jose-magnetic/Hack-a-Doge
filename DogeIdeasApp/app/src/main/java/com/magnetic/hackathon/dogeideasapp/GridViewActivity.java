@@ -43,7 +43,7 @@ public class GridViewActivity extends AppCompatActivity {
     private enum State {Dogs, Cat}
     State state;
 
-    static boolean showPrice = true;
+    static boolean showPrice = false;
 
     private GridView mGridView;
     private ProgressBar mProgressBar;
@@ -89,11 +89,11 @@ public class GridViewActivity extends AppCompatActivity {
     private void switchPriceView(MenuItem item) {
         if (!showPrice) {
             showPrice = true;
-            item.setIcon(R.drawable.ic_pets_white_24dp);
+            item.setIcon(R.drawable.ic_attach_money_white_24dp);
         } else {
-            // showPrice is PriceState.ON
+            // showPrice is ON
             showPrice = false;
-            item.setIcon(R.drawable.ic_pets_black_24dp);
+            item.setIcon(R.drawable.ic_money_off_white_24dp);
         }
         mGridAdapter.notifyDataSetChanged();
         mGridView.invalidateViews();
