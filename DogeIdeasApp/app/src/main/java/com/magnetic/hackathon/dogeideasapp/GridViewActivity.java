@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,6 +50,8 @@ public class GridViewActivity extends AppCompatActivity {
     private FloatingActionButton dogButton;
     private FloatingActionButton catButton;
     private FloatingActionButton profileButton;
+    private int dogPosition = 0;
+    private int catPosition = 0;
 
 
     private GridViewAdapter mGridAdapter;
@@ -130,6 +132,8 @@ public class GridViewActivity extends AppCompatActivity {
                     mGridAdapter.setGridData(mGridDataCat);
                     mGridAdapter.notifyDataSetChanged();
                     mGridView.invalidateViews();
+                    dogPosition = mGridView.getFirstVisiblePosition();
+                    mGridView.smoothScrollToPosition(catPosition);
                     state = State.Cat;
                     catButton.setImageResource(R.drawable.ic_doge);
                     dogButton.setImageResource(R.drawable.ic_catz);
@@ -137,10 +141,13 @@ public class GridViewActivity extends AppCompatActivity {
                     mGridAdapter.setGridData(mGridData);
                     mGridAdapter.notifyDataSetChanged();
                     mGridView.invalidateViews();
+                    catPosition = mGridView.getFirstVisiblePosition();
+                    mGridView.smoothScrollToPosition(dogPosition);
                     state = State.Dogs;
                     catButton.setImageResource(R.drawable.ic_catz);
                     dogButton.setImageResource(R.drawable.ic_doge);
                 }
+
                 catButton.setVisibility(View.GONE);
             }
         });
@@ -156,7 +163,10 @@ public class GridViewActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 //Get item at position
                 GridItem item = (GridItem) parent.getItemAtPosition(position);
-                openUrl(item.getSiteURL());
+                if (state == State.Dogs)
+                    openUrl(mGridData.get(position).getSiteURL());
+                else
+                    openUrl(mGridDataCat.get(position).getSiteURL());
             }
         });
         new ProductFetcher().execute();
