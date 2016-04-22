@@ -1,7 +1,6 @@
 package com.magnetic.hackathon.dogeideasapp;
 
 
-        import java.util.ArrayList;
         import java.util.List;
 
         import android.app.Activity;
@@ -15,8 +14,6 @@ package com.magnetic.hackathon.dogeideasapp;
         import android.widget.TextView;
 
         import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class GridViewAdapter extends ArrayAdapter<GridItem> {
 
@@ -62,6 +59,11 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
         holder.titleTextView.setText(Html.fromHtml(item.getTitle()));
 
         Picasso.with(mContext).load(item.getImageURL()).fit().into(holder.imageView);
+        if (GridViewActivity.showPrice) {
+            holder.price.setTextColor(getContext().getResources().getColor(R.color.magnetic));
+        } else {
+            holder.price.setTextColor(getContext().getResources().getColor(R.color.white));
+        }
         holder.price.setText("$" + String.valueOf(item.getPrice()));
         return row;
     }

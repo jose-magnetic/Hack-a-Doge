@@ -1,6 +1,5 @@
 package com.magnetic.hackathon.dogeideasapp;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -39,8 +40,9 @@ public class GridViewActivity extends AppCompatActivity {
     private static final String GRID_ITEM_QUERY_CAT = "select m_display_name, m_price, m_image_url, m_detail_url from ETLPREP.CATS";
 
     private enum State {Dogs, Cat}
-
     State state;
+
+    static boolean showPrice = true;
 
     private GridView mGridView;
     private ProgressBar mProgressBar;
@@ -55,6 +57,46 @@ public class GridViewActivity extends AppCompatActivity {
     private List<GridItem> mGridDataCat = new ArrayList<>(1000);
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_grid_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.show_price:
+                switchPriceView(item);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void switchPriceView(MenuItem item) {
+        if (!showPrice) {
+            showPrice = true;
+            item.setIcon(R.drawable.ic_pets_white_24dp);
+        } else {
+            // showPrice is PriceState.ON
+            showPrice = false;
+            item.setIcon(R.drawable.ic_pets_black_24dp);
+        }
+        mGridAdapter.notifyDataSetChanged();
+        mGridView.invalidateViews();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gridview);
@@ -62,6 +104,7 @@ public class GridViewActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         myToolbar.setTitle("Magne-Doge");
         myToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        myToolbar.inflateMenu(R.menu.menu_grid_activity);
         setSupportActionBar(myToolbar);
 
         state = State.Dogs;
@@ -157,10 +200,12 @@ public class GridViewActivity extends AppCompatActivity {
             boolean isSuccessful = false;
 
             // Connect to Oracle Database
+            Connection con= null;
+            Statement st= null;
             try {
                 Class.forName("oracle.jdbc.driver.OracleDriver");
-                Connection con = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD);
-                Statement st = con.createStatement();
+                con = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASSWORD);
+                st = con.createStatement();
                 ResultSet rs = st.executeQuery(GRID_ITEM_QUERY);
                 while (rs.next()) {
                     GridItem item = new GridItem();
@@ -185,8 +230,6 @@ public class GridViewActivity extends AppCompatActivity {
 
                 isSuccessful = true;
 
-                st.close();
-                con.close();
             } catch (ClassNotFoundException e) {
                 isSuccessful = false;
                 Log.e(TAG, "Unable to find the driver", e);
@@ -195,7 +238,14 @@ public class GridViewActivity extends AppCompatActivity {
                 isSuccessful = false;
                 Log.e(TAG, "Unable to query the data", e);
             }
-
+            finally {
+                try {
+                    st.close();
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
             return isSuccessful;
         }
 

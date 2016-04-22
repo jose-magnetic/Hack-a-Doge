@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">DogeIdeasApp</string>
     <string name="action_settings">Settings</string>
+    <string name="price_on">Price On</string>
+    <string name="price_off">Price Off</string>
 </resources>
